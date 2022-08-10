@@ -1,23 +1,13 @@
-// importing global module http
-const http = require('http');
-// importing express js
 const express = require('express');
-
 const app = express();
+const bodyParser = require('body-parser')
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop')
 
-app.use((req,res,next)=>{
-    console.log("In the middleware");
-    next()
-});
+app.use(bodyParser.urlencoded({}))
 
-app.use((req,res,next)=>{
-    console.log("In Another the middleware");
-    res.send('<h1>Welcome to node js</h1>');
-    next()
-    // ....
-});
 
-// creating server using http
-const server  = http.createServer(app);
+app.use(adminRoutes);
+app.use(shopRoutes)
 
-server.listen(3000)
+app.listen(3000)
